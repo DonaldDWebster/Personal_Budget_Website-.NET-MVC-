@@ -1,17 +1,19 @@
 // File for your custom JavaScript
 
 //variables for ethereum
-let socket = new WebSocket('wss://stream.binance.com:9443/ws/etheur@trade');
+let socket = new WebSocket('wss://stream.binance.us:9443/ws/etheur@trade');
 let stockPriceElement = document.getElementById('stock-ticker');
 let lastPrice = null;
 //Variables for bitcoin
-let bitcoin = new WebSocket('wss://stream.binance.com:9443/ws/btceur@trade');
+let bitcoin = new WebSocket('wss://stream.binance.us:9443/ws/btceur@trade');
 let sPriceElement = document.getElementById('bitcoin-ticker');
 //Variables for Terra
-let terra = new WebSocket('wss://stream.binance.com:9443/ws/lunaeur@trade');
+let terra = new WebSocket('wss://stream.binance.us:9443/ws/lunaeur@trade');
 let terraElement = document.getElementById('terra-ticker');
 //Variables for Terra
-let cardano = new WebSocket('wss://stream.binance.com:9443/ws/adaeur@trade');
+
+                           // 'wss://stream.binance.us:9443'
+let cardano = new WebSocket('wss://stream.binance.us:9443/ws/adaeur@trade');
 let cardanoElement = document.getElementById('cardano-ticker');
 
 
