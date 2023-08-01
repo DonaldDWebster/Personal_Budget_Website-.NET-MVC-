@@ -34,6 +34,8 @@ namespace MIS421FinalProjectGit.Data
 
         public DbSet<MIS421FinalProjectGit.Models.BudgetViewModel> BudgetViewModel { get; set; }
 
+        public DbSet<MIS421FinalProjectGit.Models.Mortgage>? Mortgage { get; set; }
+
 
        
 
