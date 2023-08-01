@@ -1,0 +1,83 @@
+﻿@model IEnumerable<MIS421FinalProjectGit.Models.Mortgage>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HomePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DownPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoanAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterestRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoanTermm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnnualInsurance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PropertyTaxes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthlyHOA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtraPayment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DownPayment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterestRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanTermm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnnualInsurance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PropertyTaxes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthlyHOA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExtraPayment)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ApplicationUserID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ApplicationUserID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ApplicationUserID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

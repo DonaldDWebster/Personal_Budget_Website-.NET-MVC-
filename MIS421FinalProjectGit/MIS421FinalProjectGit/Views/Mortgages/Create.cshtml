@@ -1,0 +1,73 @@
+﻿@model MIS421FinalProjectGit.Models.Mortgage
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Mortgage</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="HomePrice" class="control-label"></label>
+                <input asp-for="HomePrice" class="form-control" />
+                <span asp-validation-for="HomePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DownPayment" class="control-label"></label>
+                <input asp-for="DownPayment" class="form-control" />
+                <span asp-validation-for="DownPayment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoanAmount" class="control-label"></label>
+                <input asp-for="LoanAmount" class="form-control" />
+                <span asp-validation-for="LoanAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InterestRate" class="control-label"></label>
+                <input asp-for="InterestRate" class="form-control" />
+                <span asp-validation-for="InterestRate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoanTermm" class="control-label"></label>
+                <input asp-for="LoanTermm" class="form-control" />
+                <span asp-validation-for="LoanTermm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnnualInsurance" class="control-label"></label>
+                <input asp-for="AnnualInsurance" class="form-control" />
+                <span asp-validation-for="AnnualInsurance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PropertyTaxes" class="control-label"></label>
+                <input asp-for="PropertyTaxes" class="form-control" />
+                <span asp-validation-for="PropertyTaxes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MonthlyHOA" class="control-label"></label>
+                <input asp-for="MonthlyHOA" class="form-control" />
+                <span asp-validation-for="MonthlyHOA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExtraPayment" class="control-label"></label>
+                <input asp-for="ExtraPayment" class="form-control" />
+                <span asp-validation-for="ExtraPayment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
