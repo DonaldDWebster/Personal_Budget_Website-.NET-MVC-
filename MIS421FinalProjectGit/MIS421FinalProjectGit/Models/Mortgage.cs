@@ -7,8 +7,7 @@ namespace MIS421FinalProjectGit.Models
 {
     public class Mortgage
     {
-        private decimal[]? numOfPayments;
-
+        
         [Precision(14, 2)]
         public decimal HomePrice { get; set; }
         [Precision(14, 2)]
@@ -38,23 +37,27 @@ namespace MIS421FinalProjectGit.Models
         [ForeignKey("ID")]
         public ApplicationUser? ApplicationUser { get; set; }
 
-        //I am educately throwing items at the wall and seeing what sticks.
+       
         [Precision(14, 2)]
+        [NotMapped]
         public decimal[]? NumOfPayments
         {
             get
             {
-                return this.numOfPayments;
-            }
+                decimal[]? numOfPayments;
 
-            private set
-            {
                 //business logic assumes on payment per month, 
+                //this code is redundant and should be removed later, but exists now for testing purposes
                 int totalPayments = 12 * LoanTermm;
                 numOfPayments = new decimal[totalPayments];
-            }
-        }
+                for (int paymentNum = 0; paymentNum < totalPayments; paymentNum++)
+                {
+                    numOfPayments[paymentNum] = paymentNum;
+                }
 
+                return numOfPayments;
+            }
+         }
     }
 }
 

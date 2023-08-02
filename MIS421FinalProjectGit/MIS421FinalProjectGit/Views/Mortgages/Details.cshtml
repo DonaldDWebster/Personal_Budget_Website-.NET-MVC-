@@ -59,13 +59,15 @@
             @Html.DisplayFor(model => model.MonthlyHOA)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExtraPayment)
+            @Html.DisplayNameFor(model => model.NumOfPayments)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExtraPayment)
+            @Html.DisplayFor(model => model.NumOfPayments[5])
         </dd>
     </dl>
 </div>
+
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.ApplicationUserID">Edit</a> |
     <a asp-action="Index">Back to List</a>
