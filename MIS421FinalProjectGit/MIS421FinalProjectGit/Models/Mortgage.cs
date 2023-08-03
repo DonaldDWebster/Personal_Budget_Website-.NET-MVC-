@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MIS421FinalProjectGit.Models
@@ -52,11 +54,17 @@ namespace MIS421FinalProjectGit.Models
                 int totalPayments = 12 * LoanTermm;
                 numOfPayments = new decimal[totalPayments];
 
-                for (int paymentNum = 0; paymentNum < totalPayments; paymentNum++)
-                {
-                    decimal monthlyInterest = InterestRate / 12;
+                //interest Rate is divded by 100 to convert from percentage, and then divided by 12 to find the monthly rate
+                decimal monthlyInterest = InterestRate / (100*12);
+                double testing= Math.Pow((double)(1 + monthlyInterest), (double)totalPayments);
+                decimal testing2 = (decimal)testing;
 
-                    decimal monthlyPayment = (LoanAmount * monthlyInterest * (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments));
+                decimal monthlyPayment = (LoanAmount * monthlyInterest * (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments))
+                                          /
+                                           ( (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments) -1);
+
+                for (int paymentNum = 0; paymentNum < totalPayments; paymentNum++)
+                { 
 
                     numOfPayments[paymentNum] = monthlyPayment;
                 }
