@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -46,13 +47,18 @@ namespace MIS421FinalProjectGit.Models
             {
                 decimal[]? numOfPayments;
 
-                //business logic assumes on payment per month, 
+                //need to change numOfPayyments to MonthlyPayment
                 //this code is redundant and should be removed later, but exists now for testing purposes
                 int totalPayments = 12 * LoanTermm;
                 numOfPayments = new decimal[totalPayments];
+
                 for (int paymentNum = 0; paymentNum < totalPayments; paymentNum++)
                 {
-                    numOfPayments[paymentNum] = paymentNum;
+                    decimal monthlyInterest = InterestRate / 12;
+
+                    decimal monthlyPayment = (LoanAmount * monthlyInterest * (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments));
+
+                    numOfPayments[paymentNum] = monthlyPayment;
                 }
 
                 return numOfPayments;

@@ -15,19 +15,19 @@ let sPriceElement = document.getElementById('bitcoin-ticker');
 
 //Ethereum function
 socket.onmessage = (event) => {
-    console.log("ETHERIUM EVENT ACTIVATED, EXECUTING FUNCTION");
+ //   console.log("ETHERIUM EVENT ACTIVATED, EXECUTING FUNCTION");
     let stockObject = JSON.parse(event.data);
-    console.log(event.data);
+   // console.log(event.data);
 
     let price = parseFloat(stockObject.p).toFixed(2);
-    console.log("The price is :" + price);
+   // console.log("The price is :" + price);
     stockPriceElement.innerText = price;
     stockPriceElement.style.color = !lastPrice || lastPrice === price ? 'black' : price > lastPrice ? 'green' : 'red';
     lastPrice = price;
 };
 //bitcoin function
 bitcoin.onmessage = (event) => {
-    console.log("BITCOIN EVENT ACTIVATED, EXECUTING FUNCTION");
+  //  console.log("BITCOIN EVENT ACTIVATED, EXECUTING FUNCTION");
     let sObject = JSON.parse(event.data);
     let prices = parseFloat(sObject.p).toFixed(2);
     sPriceElement.innerText = prices;
