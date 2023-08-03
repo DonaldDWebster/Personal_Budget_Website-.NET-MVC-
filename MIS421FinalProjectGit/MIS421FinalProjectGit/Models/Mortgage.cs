@@ -45,7 +45,7 @@ namespace MIS421FinalProjectGit.Models
         [NotMapped]
 
         //(decimal[] MonthlyPayments, decimal RemainingBalance) 
-        public (decimal[] MonthlyPayments, decimal[] RemainingBalance) NumOfPayments
+        public (decimal[] MonthlyPayments, decimal[] RemainingBalance) monthlyPayments
         {
             
 
@@ -58,7 +58,7 @@ namespace MIS421FinalProjectGit.Models
                 //need to change numOfPayyments to MonthlyPayment
                 //this code is redundant and should be removed later, but exists now for testing purposes
                 int totalPayments = 12 * LoanTermm;
-                decimal[]? numOfPayments = new decimal[totalPayments];
+                decimal[]? monthlyPayments = new decimal[totalPayments];
                 decimal[]? inputRemainingBalance = new decimal[totalPayments];
                 //interest Rate is divded by 100 to convert from percentage, and then divided by 12 to find the monthly rate
                 decimal monthlyInterest = InterestRate / (100*12);
@@ -72,12 +72,12 @@ namespace MIS421FinalProjectGit.Models
                 for (int paymentNum = 0; paymentNum < totalPayments; paymentNum++)
                 { 
 
-                    numOfPayments[paymentNum] = monthlyPayment;
+                    monthlyPayments[paymentNum] = monthlyPayment;
                     //remove below line later
                     inputRemainingBalance[paymentNum] = monthlyPayment;
                 }
 
-                outputTuple.MonthlyPayments= numOfPayments;
+                outputTuple.MonthlyPayments= monthlyPayments;
                 outputTuple.RemainingBalance = inputRemainingBalance;
                 //outputTuple.RemainingBalance = (decimal) 1.23456;
                 return outputTuple;

@@ -4,7 +4,7 @@
 
 namespace MIS421FinalProjectGit.Migrations
 {
-    public partial class add_attribute_numOfPayments_to_Mortgage_Model : Migration
+    public partial class add_attribute_monthlyPayments_to_Mortgage_Model : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

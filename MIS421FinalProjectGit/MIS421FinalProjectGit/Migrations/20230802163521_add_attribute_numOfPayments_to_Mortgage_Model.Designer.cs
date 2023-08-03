@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MIS421FinalProjectGit.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230802163521_add_attribute_numOfPayments_to_Mortgage_Model")]
-    partial class add_attribute_numOfPayments_to_Mortgage_Model
+    [Migration("20230802163521_add_attribute_monthlyPayments_to_Mortgage_Model")]
+    partial class add_attribute_monthlyPayments_to_Mortgage_Model
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
