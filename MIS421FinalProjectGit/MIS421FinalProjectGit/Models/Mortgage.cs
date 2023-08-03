@@ -44,14 +44,14 @@ namespace MIS421FinalProjectGit.Models
         [Precision(14, 2)]
         [NotMapped]
 
-        //(decimal[] MonthlyPayments, decimal RemainingBalance) 
-        public (decimal[] MonthlyPayments, decimal[] RemainingBalance) monthlyPayments
+        //(decimal[] monthlyPayments, decimal remainingBalance) 
+        public (decimal[] monthlyPayments, decimal[] remainingBalance) monthlyPayments
         {
             
 
         get
             {
-                (decimal[] MonthlyPayments, decimal[] RemainingBalance) outputTuple = (null, null);
+                (decimal[] monthlyPayments, decimal[] remainingBalance) outputTuple = (null, null);
                 //rename the below variable to Monthly Payments soon
           
 
@@ -59,7 +59,7 @@ namespace MIS421FinalProjectGit.Models
                 //this code is redundant and should be removed later, but exists now for testing purposes
                 int totalPayments = 12 * LoanTermm;
                 decimal[]? monthlyPayments = new decimal[totalPayments];
-                decimal[]? inputRemainingBalance = new decimal[totalPayments];
+                decimal[]? remainingBalance = new decimal[totalPayments];
                 //interest Rate is divded by 100 to convert from percentage, and then divided by 12 to find the monthly rate
                 decimal monthlyInterest = InterestRate / (100*12);
                 double testing= Math.Pow((double)(1 + monthlyInterest), (double)totalPayments);
@@ -71,15 +71,14 @@ namespace MIS421FinalProjectGit.Models
 
                 for (int paymentNum = 0; paymentNum < totalPayments; paymentNum++)
                 { 
-
                     monthlyPayments[paymentNum] = monthlyPayment;
                     //remove below line later
-                    inputRemainingBalance[paymentNum] = monthlyPayment;
+                    remainingBalance[paymentNum] = monthlyPayment;
                 }
 
-                outputTuple.MonthlyPayments= monthlyPayments;
-                outputTuple.RemainingBalance = inputRemainingBalance;
-                //outputTuple.RemainingBalance = (decimal) 1.23456;
+                outputTuple.monthlyPayments= monthlyPayments;
+                outputTuple.remainingBalance = remainingBalance;
+                //outputTuple.remainingBalance = (decimal) 1.23456;
                 return outputTuple;
             }
          }
