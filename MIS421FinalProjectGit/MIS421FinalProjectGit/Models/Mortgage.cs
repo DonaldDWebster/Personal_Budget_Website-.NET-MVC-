@@ -43,33 +43,44 @@ namespace MIS421FinalProjectGit.Models
        
         [Precision(14, 2)]
         [NotMapped]
-        public decimal[]? NumOfPayments
+
+        //(decimal[] MonthlyPayments, decimal RemainingBalance) 
+        public (decimal[] MonthlyPayments, decimal[] RemainingBalance) NumOfPayments
         {
-            get
+            
+
+        get
             {
-                decimal[]? numOfPayments;
+                (decimal[] MonthlyPayments, decimal[] RemainingBalance) outputTuple = (null, null);
+                //rename the below variable to Monthly Payments soon
+          
 
                 //need to change numOfPayyments to MonthlyPayment
                 //this code is redundant and should be removed later, but exists now for testing purposes
                 int totalPayments = 12 * LoanTermm;
-                numOfPayments = new decimal[totalPayments];
-
+                decimal[]? numOfPayments = new decimal[totalPayments];
+                decimal[]? inputRemainingBalance = new decimal[totalPayments];
                 //interest Rate is divded by 100 to convert from percentage, and then divided by 12 to find the monthly rate
                 decimal monthlyInterest = InterestRate / (100*12);
                 double testing= Math.Pow((double)(1 + monthlyInterest), (double)totalPayments);
                 decimal testing2 = (decimal)testing;
 
                 decimal monthlyPayment = (LoanAmount * monthlyInterest * (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments))
-                                          /
-                                           ( (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments) -1);
+                                         /
+                                         ( (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments) -1);
 
                 for (int paymentNum = 0; paymentNum < totalPayments; paymentNum++)
                 { 
 
                     numOfPayments[paymentNum] = monthlyPayment;
+                    //remove below line later
+                    inputRemainingBalance[paymentNum] = monthlyPayment;
                 }
 
-                return numOfPayments;
+                outputTuple.MonthlyPayments= numOfPayments;
+                outputTuple.RemainingBalance = inputRemainingBalance;
+                //outputTuple.RemainingBalance = (decimal) 1.23456;
+                return outputTuple;
             }
          }
     }
