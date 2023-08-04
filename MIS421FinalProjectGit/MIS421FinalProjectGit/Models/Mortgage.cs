@@ -87,14 +87,17 @@ namespace MIS421FinalProjectGit.Models
                         }
                     if (paymentNum == 0)
                     {
+                        interestPayments[paymentNum] = LoanAmount * monthlyInterest;
+                        principalPayments[paymentNum] = monthlyPayments[paymentNum] - interestPayments[paymentNum];
                         remainingBalances[paymentNum] = LoanAmount - principalPayments[paymentNum];
                     }
                     else
                     {
-                        remainingBalances[paymentNum] = remainingBalances[paymentNum - 1] - principalPayments[paymentNum]; 
+                        interestPayments[paymentNum] = remainingBalances[paymentNum-1] * monthlyInterest;
+                        principalPayments[paymentNum] = monthlyPayments[paymentNum] - interestPayments[paymentNum];
+                        remainingBalances[paymentNum] = (remainingBalances[paymentNum - 1] - principalPayments[paymentNum]); 
                     }
-                    interestPayments[paymentNum] = remainingBalances[paymentNum] * monthlyInterest;
-                    principalPayments[paymentNum] = monthlyPayments[paymentNum] - interestPayments[paymentNum];
+
                     monthlyTotalCosts[paymentNum] = monthlyPayments[paymentNum] + MonthlyHOA + (AnnualInsurance / 12) + (PropertyTaxes / 12);
                 }
                
