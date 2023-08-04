@@ -31,7 +31,7 @@ namespace MIS421FinalProjectGit.Models
         public decimal MonthlyHOA { get; set; }
         [Precision(14, 2)]
         //An extra payment given on every 6th month (July 1st)
-        public decimal ExtraPayment { get; set; }
+        public Boolean ExtraPayment { get; set; }
 
         [Required]
         //This entity (Mortgage) has a 1-1 relationship with ApplicationUser, and therefore it has the primary and foreign key as the s
@@ -81,7 +81,7 @@ namespace MIS421FinalProjectGit.Models
                     paymentDates[paymentNum] = loanStartDate.AddMonths(paymentNum);
                     monthlyPayments[paymentNum] = monthlyPayment;
                         //checks adds an additionaly payment every six month 
-                        if ( (paymentNum+1) % 6 == 0)
+                        if ( ExtraPayment && ((paymentNum+1) % 6 == 0) )
                         {
                             monthlyPayments[paymentNum] += monthlyPayment;
                         }
