@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -44,41 +45,66 @@ namespace MIS421FinalProjectGit.Models
         [Precision(14, 2)]
         [NotMapped]
 
-        //(decimal[] monthlyPayments, decimal remainingBalance) 
-        public (decimal[] monthlyPayments, decimal[] remainingBalance) monthlyPayments
+        //(decimal[] monthlyPayments, decimal remainingBalances) 
+        public (DateTime[]? paymentDates, decimal[]? principalPayments, decimal[]? interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[]? monthlyTotalCosts) monthlyPayments
         {
             
 
         get
             {
-                (decimal[] monthlyPayments, decimal[] remainingBalance) outputTuple = (null, null);
+                (DateTime[] ? paymentDates, decimal[] ? principalPayments, decimal[] ? interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[]? monthlyTotalCosts) outputTuple = (null,null,null,null,null,null);
                 //rename the below variable to Monthly Payments soon
           
 
                 //need to change numOfPayyments to MonthlyPayment
                 //this code is redundant and should be removed later, but exists now for testing purposes
                 int totalPayments = 12 * LoanTermm;
+               
+                DateTime[]? paymentDates = new DateTime[totalPayments];
+                decimal[]? principalPayments = new decimal[totalPayments];
+                decimal[]? interestPayments = new decimal[totalPayments];
                 decimal[]? monthlyPayments = new decimal[totalPayments];
-                decimal[]? remainingBalance = new decimal[totalPayments];
+                decimal[]? remainingBalances = new decimal[totalPayments];
+                //total monthly cost = total payment + Home owners fee + taxes + etc
+                decimal[]? monthlyTotalCosts = new decimal[totalPayments];
+
+                DateTime loanStartDate = new DateTime(2024, 1, 1);
                 //interest Rate is divded by 100 to convert from percentage, and then divided by 12 to find the monthly rate
                 decimal monthlyInterest = InterestRate / (100*12);
-                double testing= Math.Pow((double)(1 + monthlyInterest), (double)totalPayments);
-                decimal testing2 = (decimal)testing;
-
+        
                 decimal monthlyPayment = (LoanAmount * monthlyInterest * (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments))
                                          /
                                          ( (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments) -1);
 
                 for (int paymentNum = 0; paymentNum < totalPayments; paymentNum++)
-                { 
+                {
+                    paymentDates[paymentNum] = loanStartDate.AddMonths(paymentNum);
                     monthlyPayments[paymentNum] = monthlyPayment;
-                    //remove below line later
-                    remainingBalance[paymentNum] = monthlyPayment;
+                        //checks adds an additionaly payment every six month 
+                        if ( (paymentNum+1) % 6 == 0)
+                        {
+                            monthlyPayments[paymentNum] += monthlyPayment;
+                        }
+                    if (paymentNum == 0)
+                    {
+                        remainingBalances[paymentNum] = LoanAmount - principalPayments[paymentNum];
+                    }
+                    else
+                    {
+                        remainingBalances[paymentNum] = remainingBalances[paymentNum - 1] - principalPayments[paymentNum]; 
+                    }
+                    interestPayments[paymentNum] = remainingBalances[paymentNum] * monthlyInterest;
+                    principalPayments[paymentNum] = monthlyPayments[paymentNum] - interestPayments[paymentNum];
+                    monthlyTotalCosts[paymentNum] = monthlyPayments[paymentNum] + MonthlyHOA + (AnnualInsurance / 12) + (PropertyTaxes / 12);
                 }
-
+               
+                outputTuple.paymentDates = paymentDates;
+                outputTuple.principalPayments = principalPayments;
+                outputTuple.interestPayments = interestPayments; 
                 outputTuple.monthlyPayments= monthlyPayments;
-                outputTuple.remainingBalance = remainingBalance;
-                //outputTuple.remainingBalance = (decimal) 1.23456;
+                outputTuple.remainingBalances = remainingBalances;
+                outputTuple.monthlyTotalCosts = monthlyTotalCosts;
+   
                 return outputTuple;
             }
          }

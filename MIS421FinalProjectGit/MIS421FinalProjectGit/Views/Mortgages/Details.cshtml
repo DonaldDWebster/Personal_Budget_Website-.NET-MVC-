@@ -87,6 +87,9 @@
         Total Mortgage Payment
     </dt>
     <dt class="col-sm-2">
+        Remaining Balance
+     </dt>
+    <dt class="col-sm-2">
         Total Monthly Cost(Includes taxes, HOA, etc)
     </dt>
 </dl>
@@ -95,22 +98,30 @@
 {
     <dl class="row">
         <dt class="col-sm-2">
-            @i
+            @(i+1)   
         </dt>
         <dt class="col-sm-2">
-            Date
+          @*  Date*@
+            @Html.DisplayFor(model => model.monthlyPayments.paymentDates[i])
         </dt>
         <dt class="col-sm-2">
-            Principal Payment
+            @*Principal Payment*@
+            @Html.DisplayFor(model => model.monthlyPayments.principalPayments[i])
         </dt>
         <dt class="col-sm-2">
-            Interest Payment
+            @*Interest Payment*@
+            @Html.DisplayFor(model => model.monthlyPayments.interestPayments[i])
         </dt>
         <dt class="col-sm-2">
             @Html.DisplayFor(model => model.monthlyPayments.monthlyPayments[i])
         </dt>
         <dt class="col-sm-2">
-            Total Monthly Cost(Includes taxes, HOA, etc)
+            @*Remaining Balance*@
+            @Html.DisplayFor(model => model.monthlyPayments.remainingBalances[i])
+        </dt>
+        <dt class="col-sm-2">
+            @*Total Monthly Cost(Includes taxes, HOA, etc)*@
+            @Html.DisplayFor(model => model.monthlyPayments.monthlyTotalCosts[i])
         </dt>
     </dl>
 }
