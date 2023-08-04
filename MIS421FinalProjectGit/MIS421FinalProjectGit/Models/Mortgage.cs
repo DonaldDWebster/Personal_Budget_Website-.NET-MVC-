@@ -21,7 +21,7 @@ namespace MIS421FinalProjectGit.Models
         [Precision(14, 2)]
         public decimal InterestRate { get; set; }
         [Precision(14, 2)]
-        public int LoanTermm { get; set; }
+        public int LoanTerm { get; set; }
         [Precision(14, 2)]
         public decimal AnnualInsurance { get; set; }
         [Precision(14, 2)]
@@ -58,7 +58,7 @@ namespace MIS421FinalProjectGit.Models
 
                 //need to change numOfPayyments to MonthlyPayment
                 //this code is redundant and should be removed later, but exists now for testing purposes
-                int totalPayments = 12 * LoanTermm;
+                int totalPayments = 12 * LoanTerm;
                
                 DateTime[]? paymentDates = new DateTime[totalPayments];
                 decimal[]? principalPayments = new decimal[totalPayments];

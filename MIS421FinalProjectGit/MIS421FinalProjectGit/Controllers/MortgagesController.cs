@@ -56,7 +56,7 @@ namespace MIS421FinalProjectGit.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HomePrice,DownPayment,LoanAmount,InterestRate,LoanTermm,AnnualInsurance,PropertyTaxes,MonthlyHOA,ExtraPayment,ApplicationUserID")] Mortgage mortgage)
+        public async Task<IActionResult> Create([Bind("HomePrice,DownPayment,LoanAmount,InterestRate,LoanTerm,AnnualInsurance,PropertyTaxes,MonthlyHOA,ExtraPayment,ApplicationUserID")] Mortgage mortgage)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace MIS421FinalProjectGit.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("HomePrice,DownPayment,LoanAmount,InterestRate,LoanTermm,AnnualInsurance,PropertyTaxes,MonthlyHOA,ExtraPayment,ApplicationUserID")] Mortgage mortgage)
+        public async Task<IActionResult> Edit(Guid id, [Bind("HomePrice,DownPayment,LoanAmount,InterestRate,LoanTerm,AnnualInsurance,PropertyTaxes,MonthlyHOA,ExtraPayment,ApplicationUserID")] Mortgage mortgage)
         {
             if (id != mortgage.ApplicationUserID)
             {
