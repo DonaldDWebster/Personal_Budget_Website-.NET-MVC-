@@ -11,7 +11,9 @@ namespace MIS421FinalProjectGit.Models
 {
     public class Mortgage
     {
-        
+        [Key]
+        public Guid MortgageID { get; set; }
+
         [Precision(14, 2)]
         [Display(Name = "Home Price")]
         public decimal HomePrice { get; set; }
@@ -44,7 +46,6 @@ namespace MIS421FinalProjectGit.Models
 
         [Required]
         //This entity (Mortgage) has a 1-1 relationship with ApplicationUser, and therefore it has the primary and foreign key as the s
-        [Key]
         public Guid ApplicationUserID { get; set; }
 
         [ForeignKey("ID")]
