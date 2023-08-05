@@ -292,16 +292,13 @@ namespace MIS421FinalProjectGit.Migrations
 
             modelBuilder.Entity("MIS421FinalProjectGit.Models.Mortgage", b =>
                 {
-                    b.Property<Guid>("MortgageID")
+                    b.Property<Guid>("ApplicationUserID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("AnnualInsurance")
                         .HasPrecision(14, 2)
                         .HasColumnType("decimal(14,2)");
-
-                    b.Property<Guid>("ApplicationUserID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("DownPayment")
                         .HasPrecision(14, 2)
@@ -338,7 +335,7 @@ namespace MIS421FinalProjectGit.Migrations
                         .HasPrecision(14, 2)
                         .HasColumnType("decimal(14,2)");
 
-                    b.HasKey("MortgageID");
+                    b.HasKey("ApplicationUserID");
 
                     b.HasIndex("ID");
 
