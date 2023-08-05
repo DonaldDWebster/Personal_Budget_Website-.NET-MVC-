@@ -76,7 +76,7 @@ namespace MIS421FinalProjectGit.Models
                 decimal[]? remainingBalances = new decimal[totalPayments];
                 //total monthly cost = total payment + Home owners fee + taxes + etc
                 decimal[]? monthlyTotalCosts = new decimal[totalPayments];
-                int lastPaymentNum = 0;
+                int lastPaymentNum = totalPayments;
 
                 DateTime loanStartDate = new DateTime(2024, 1, 1);
                 //interest Rate is divded by 100 to convert from percentage, and then divided by 12 to find the monthly rate
@@ -86,7 +86,7 @@ namespace MIS421FinalProjectGit.Models
                                          /
                                          ( (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments) -1);
 
-                for (int paymentNum = 0; paymentNum < totalPayments && lastPaymentNum == 0; paymentNum++)
+                for (int paymentNum = 0; paymentNum < totalPayments && lastPaymentNum == totalPayments; paymentNum++)
                 {
                     paymentDates[paymentNum] = loanStartDate.AddMonths(paymentNum);
                     monthlyPayments[paymentNum] = monthlyPayment;
@@ -120,7 +120,7 @@ namespace MIS421FinalProjectGit.Models
                             //log the curren payment so you know when the last payment is
                             //have some kind of trigger that ends the program
                             
-                            lastPaymentNum = paymentNum;
+                            lastPaymentNum = paymentNum+1;
                             //below line will trigger the end of the for loop
                             //paymentNum = totalPayments;
                             
