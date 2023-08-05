@@ -13,24 +13,33 @@ namespace MIS421FinalProjectGit.Models
     {
         
         [Precision(14, 2)]
+        [Display(Name = "Home Price")]
         public decimal HomePrice { get; set; }
         [Precision(14, 2)]
+        [Display(Name = "Down Payment")]
         public decimal DownPayment { get; set; }
         [Precision(14, 2)]
+        [Display(Name = "Loan Amount")]
         public decimal LoanAmount { get; set; }
         [Precision(14, 2)]
+        [Display(Name = "Interest Rate")]
         public decimal InterestRate { get; set; }
         [Precision(14, 2)]
+        [Display(Name = "Loan Term")]
         public int LoanTerm { get; set; }
         [Precision(14, 2)]
+        [Display(Name = "Annual Insurance")]
         public decimal AnnualInsurance { get; set; }
         [Precision(14, 2)]
+        [Display(Name = "Property Taxes")]
         public decimal PropertyTaxes { get; set; }
         [Precision(14, 2)]
         //Monthly Home Owner's Association Fee
+        [Display(Name = "Monthly HOA Fee")]
         public decimal MonthlyHOA { get; set; }
         [Precision(14, 2)]
         //An extra payment given on every 6th month (July 1st)
+        [Display(Name = "Extra payment every 6th Month")]
         public Boolean ExtraPayment { get; set; }
 
         [Required]
