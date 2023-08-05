@@ -46,13 +46,13 @@ namespace MIS421FinalProjectGit.Models
         [NotMapped]
 
         //(decimal[] monthlyPayments, decimal remainingBalances) 
-        public (DateTime[]? paymentDates, decimal[]? principalPayments, decimal[]? interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[]? monthlyTotalCosts) monthlyPayments
+        public (DateTime[]? paymentDates, decimal[]? principalPayments, decimal[]? interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[]? monthlyTotalCosts, int lastPaymentNum) monthlyPayments
         {
             
 
         get
             {
-                (DateTime[] ? paymentDates, decimal[] ? principalPayments, decimal[] ? interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[]? monthlyTotalCosts) outputTuple = (null,null,null,null,null,null);
+                (DateTime[] ? paymentDates, decimal[] ? principalPayments, decimal[] ? interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[]? monthlyTotalCosts, int lastPaymentNum) outputTuple = (null,null,null,null,null,null,0);
                 //rename the below variable to Monthly Payments soon
           
 
@@ -67,6 +67,7 @@ namespace MIS421FinalProjectGit.Models
                 decimal[]? remainingBalances = new decimal[totalPayments];
                 //total monthly cost = total payment + Home owners fee + taxes + etc
                 decimal[]? monthlyTotalCosts = new decimal[totalPayments];
+                int lastPaymentNum = 0;
 
                 DateTime loanStartDate = new DateTime(2024, 1, 1);
                 //interest Rate is divded by 100 to convert from percentage, and then divided by 12 to find the monthly rate
@@ -76,7 +77,7 @@ namespace MIS421FinalProjectGit.Models
                                          /
                                          ( (decimal)Math.Pow((double)(1 + monthlyInterest), (double)totalPayments) -1);
 
-                for (int paymentNum = 0; paymentNum < totalPayments; paymentNum++)
+                for (int paymentNum = 0; paymentNum < totalPayments && lastPaymentNum == 0; paymentNum++)
                 {
                     paymentDates[paymentNum] = loanStartDate.AddMonths(paymentNum);
                     monthlyPayments[paymentNum] = monthlyPayment;
@@ -93,9 +94,28 @@ namespace MIS421FinalProjectGit.Models
                     }
                     else
                     {
-                        interestPayments[paymentNum] = remainingBalances[paymentNum-1] * monthlyInterest;
+                        interestPayments[paymentNum] = remainingBalances[paymentNum - 1] * monthlyInterest;
                         principalPayments[paymentNum] = monthlyPayments[paymentNum] - interestPayments[paymentNum];
-                        remainingBalances[paymentNum] = (remainingBalances[paymentNum - 1] - principalPayments[paymentNum]); 
+                        remainingBalances[paymentNum] = (remainingBalances[paymentNum - 1] - principalPayments[paymentNum]);
+
+                        //maybe add here
+                        if( remainingBalances[paymentNum] <= 0 ) {
+
+                        //reset the principal and monthly payements so that they pays off the remaining Balance but not more than the remaining balance
+                        principalPayments[paymentNum] = remainingBalances[paymentNum-1];
+                        monthlyPayments[paymentNum] = principalPayments[paymentNum] + interestPayments[paymentNum];
+
+                        //set remainingBalance to 0
+                        remainingBalances[paymentNum] = 0;
+
+                            //log the curren payment so you know when the last payment is
+                            //have some kind of trigger that ends the program
+                            
+                            lastPaymentNum = paymentNum;
+                            //below line will trigger the end of the for loop
+                            //paymentNum = totalPayments;
+                            
+                        }
                     }
 
                     monthlyTotalCosts[paymentNum] = monthlyPayments[paymentNum] + MonthlyHOA + (AnnualInsurance / 12) + (PropertyTaxes / 12);
@@ -107,6 +127,7 @@ namespace MIS421FinalProjectGit.Models
                 outputTuple.monthlyPayments= monthlyPayments;
                 outputTuple.remainingBalances = remainingBalances;
                 outputTuple.monthlyTotalCosts = monthlyTotalCosts;
+                outputTuple.lastPaymentNum = lastPaymentNum;
    
                 return outputTuple;
             }
