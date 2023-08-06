@@ -52,24 +52,24 @@ namespace MIS421FinalProjectGit.Models
        
         [Precision(14, 2)]
         [NotMapped]
-        public (DateTime[]? paymentDates, decimal[]? principalPayments, decimal[]? interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[]? monthlyTotalCosts, int lastPaymentNum) monthlyPayments
+        public (DateTime[] paymentDates, decimal[] principalPayments, decimal[] interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[] monthlyTotalCosts, int lastPaymentNum) monthlyPayments
         {
             
 
         get
             {
                 //the below outputTuple will hold several lists of mortgage schedule data. 
-                (DateTime[] ? paymentDates, decimal[] ? principalPayments, decimal[] ? interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[]? monthlyTotalCosts, int lastPaymentNum) outputTuple = (null,null,null,null,null,null,0);
+                (DateTime[] paymentDates, decimal[]  principalPayments, decimal[]  interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[] monthlyTotalCosts, int lastPaymentNum) outputTuple = (null,null,null,null,null,null,0);
         
                 int totalPayments = 12 * LoanTerm;
                
-                DateTime[]? paymentDates = new DateTime[totalPayments];
-                decimal[]? principalPayments = new decimal[totalPayments];
-                decimal[]? interestPayments = new decimal[totalPayments];
-                decimal[]? monthlyPayments = new decimal[totalPayments];
-                decimal[]? remainingBalances = new decimal[totalPayments];
+                DateTime[] paymentDates = new DateTime[totalPayments];
+                decimal[] principalPayments = new decimal[totalPayments];
+                decimal[] interestPayments = new decimal[totalPayments];
+                decimal[] monthlyPayments = new decimal[totalPayments];
+                decimal[] remainingBalances = new decimal[totalPayments];
                 //total monthly cost = total payment + Home owners fee + taxes
-                decimal[]? monthlyTotalCosts = new decimal[totalPayments];
+                decimal[] monthlyTotalCosts = new decimal[totalPayments];
                 int lastPaymentNum = totalPayments;
 
                 DateTime loanStartDate = new DateTime(2024, 1, 1);
