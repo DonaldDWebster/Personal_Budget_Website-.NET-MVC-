@@ -93,28 +93,21 @@
             @(i+1)   
         </dt>
         <dt class="col-sm-1">
-          @*  Date*@
-       @*     @Html.Raw(Model.fec_ini.ToString("dd/MM/yyyy"))*@
             @Html.Raw(Model.monthlyPayments.paymentDates[i].ToString("dd/MM/yyyy"))
-          @*  @Html.DisplayFor(model => model.monthlyPayments.paymentDates[i])*@
         </dt>
         <dt class="col-sm-2">
-            @*Principal Payment*@
             @Html.DisplayFor(model => model.monthlyPayments.principalPayments[i])
         </dt>
         <dt class="col-sm-2">
-            @*Interest Payment*@
             @Html.DisplayFor(model => model.monthlyPayments.interestPayments[i])
         </dt>
         <dt class="col-sm-2">
             @Html.DisplayFor(model => model.monthlyPayments.monthlyPayments[i])
         </dt>
         <dt class="col-sm-2">
-            @*Remaining Balance*@
             @Html.DisplayFor(model => model.monthlyPayments.remainingBalances[i])
         </dt>
         <dt class="col-sm-2">
-            @*Total Monthly Cost(Includes taxes, HOA, etc)*@
             @Html.DisplayFor(model => model.monthlyPayments.monthlyTotalCosts[i])
         </dt>
     </dl>

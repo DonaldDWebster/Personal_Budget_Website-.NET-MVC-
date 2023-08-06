@@ -34,7 +34,6 @@ namespace MIS421FinalProjectGit.Models
         [Display(Name = "Property Taxes")]
         public decimal PropertyTaxes { get; set; }
         [Precision(14, 2)]
-        //Monthly Home Owner's Association Fee
         [Display(Name = "Monthly HOA Fee")]
         public decimal MonthlyHOA { get; set; }
         [Precision(14, 2)]
@@ -43,7 +42,7 @@ namespace MIS421FinalProjectGit.Models
         public Boolean ExtraPayment { get; set; }
 
         [Required]
-        //This entity (Mortgage) has a 1-1 relationship with ApplicationUser, and therefore it has the primary and foreign key as the s
+        //This entity (Mortgage) has a 1-1 relationship with ApplicationUser, therefore "ApplicationUserID" is both the foreign kery and primary key
         [Key]
         public Guid ApplicationUserID { get; set; }
 
@@ -53,20 +52,15 @@ namespace MIS421FinalProjectGit.Models
        
         [Precision(14, 2)]
         [NotMapped]
-
-        //(decimal[] monthlyPayments, decimal remainingBalances) 
         public (DateTime[]? paymentDates, decimal[]? principalPayments, decimal[]? interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[]? monthlyTotalCosts, int lastPaymentNum) monthlyPayments
         {
             
 
         get
             {
+                //the below outputTuple will hold several lists of mortgage schedule data. 
                 (DateTime[] ? paymentDates, decimal[] ? principalPayments, decimal[] ? interestPayments, decimal[] monthlyPayments, decimal[] remainingBalances, decimal[]? monthlyTotalCosts, int lastPaymentNum) outputTuple = (null,null,null,null,null,null,0);
-                //rename the below variable to Monthly Payments soon
-          
-
-                //need to change numOfPayyments to MonthlyPayment
-                //this code is redundant and should be removed later, but exists now for testing purposes
+        
                 int totalPayments = 12 * LoanTerm;
                
                 DateTime[]? paymentDates = new DateTime[totalPayments];
@@ -74,7 +68,7 @@ namespace MIS421FinalProjectGit.Models
                 decimal[]? interestPayments = new decimal[totalPayments];
                 decimal[]? monthlyPayments = new decimal[totalPayments];
                 decimal[]? remainingBalances = new decimal[totalPayments];
-                //total monthly cost = total payment + Home owners fee + taxes + etc
+                //total monthly cost = total payment + Home owners fee + taxes
                 decimal[]? monthlyTotalCosts = new decimal[totalPayments];
                 int lastPaymentNum = totalPayments;
 
@@ -90,7 +84,7 @@ namespace MIS421FinalProjectGit.Models
                 {
                     paymentDates[paymentNum] = loanStartDate.AddMonths(paymentNum);
                     monthlyPayments[paymentNum] = monthlyPayment;
-                        //checks adds an additionaly payment every six month 
+                        //below if statement adds additional payment every six month 
                         if ( ExtraPayment && ((paymentNum+1) % 6 == 0) )
                         {
                             monthlyPayments[paymentNum] += monthlyPayment;
@@ -107,23 +101,17 @@ namespace MIS421FinalProjectGit.Models
                         principalPayments[paymentNum] = monthlyPayments[paymentNum] - interestPayments[paymentNum];
                         remainingBalances[paymentNum] = (remainingBalances[paymentNum - 1] - principalPayments[paymentNum]);
 
-                        //maybe add here
                         if( remainingBalances[paymentNum] <= 0 ) {
 
-                        //reset the principal and monthly payements so that they pays off the remaining Balance but not more than the remaining balance
-                        principalPayments[paymentNum] = remainingBalances[paymentNum-1];
-                        monthlyPayments[paymentNum] = principalPayments[paymentNum] + interestPayments[paymentNum];
+                            //reset the principal and monthly payements so that they pay off the remaining Balance but not more than the remaining balance
+                            principalPayments[paymentNum] = remainingBalances[paymentNum-1];
+                            monthlyPayments[paymentNum] = principalPayments[paymentNum] + interestPayments[paymentNum];
 
-                        //set remainingBalance to 0
-                        remainingBalances[paymentNum] = 0;
+                            //set remainingBalance to 0
+                            remainingBalances[paymentNum] = 0;
 
-                            //log the curren payment so you know when the last payment is
-                            //have some kind of trigger that ends the program
-                            
+                            //log the current payment so you know when the last payment is
                             lastPaymentNum = paymentNum+1;
-                            //below line will trigger the end of the for loop
-                            //paymentNum = totalPayments;
-                            
                         }
                     }
 
